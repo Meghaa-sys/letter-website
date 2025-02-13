@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            perspective: 1500px;
+            overflow-x: hidden;
+            background-color: #000;
+            position: relative;
+        }
+
+        .book {
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            margin: 50px auto;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transform-origin: left;
+            transition: transform 2s;
+            cursor: pointer;
+            backface-visibility: hidden;
+        }
+
+        .page1 {
+            background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            text-align: center;
+            z-index: 3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .page2 {
+            background: linear-gradient(to right, #0d1b2a, #1b263b);
+            color: #fff;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .page2 img {
+            width: 80%;
+            aspect-ratio: 4 / 3;
+            border: 4px solid #fff;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .page3 {
+            background: #0d1b2a;
+            color: #fff;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .page3 p {
+            font-size: 1.5em;
+            margin: 20px;
+        }
+
+        .page1.clicked {
+            transform: rotateY(-180deg);
+            z-index: 1;
+        }
+
+        .page2.clicked {
+            transform: rotateY(-180deg);
+            z-index: 3;
+        }
+
+        .moon-theme {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #f3f3f3, transparent 60%), #0d1b2a;
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        /* Heart Animation */
+        @keyframes floating-hearts {
+            0% {
+                transform: translateY(100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 2em;
+            color: red;
+            animation: floating-hearts 5s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="book">
+        <div class="page page1" onclick="turnPage(this)">
+            <h1>Happy Valentine's Day, My Moon 🌙</h1>
+            <p>Click to turn the page!</p>
+        </div>
+        <div class="page page2" onclick="turnPage(this)">
+            <div class="moon-theme"></div>
+            <h1>Some special moments🌕♥  🌌</h1>
+            
+            
+            <img src="let.jpg" alt="Our Memory">
+        </div>
+        <div class="page page3">
+            <div class="moon-theme"></div>
+            <h1>Message for You 💌</h1>
+            <p>I wish to have you with me, just like the moon stays with me unit the very end.You make me feel special and happy... I promise I'll always be with u...</p>
+        </div>
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        let currentPage = 0;
+
+        pages.forEach((page, index) => {
+            page.addEventListener('click', () => {
+                if (index === currentPage) {
+                    page.classList.add('clicked');
+                    currentPage++;
+                }
+            });
+        });
+
+        // Generate floating hearts
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '❤';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = 3 + Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 300);
+    </script>
+</body>
+</html>
